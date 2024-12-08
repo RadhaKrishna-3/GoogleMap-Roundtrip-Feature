@@ -1,0 +1,18 @@
+import googlemaps
+from datetime import datetime
+gmaps = googlemaps.Client(key='your_api_key')
+
+def round_trip_route(start_location, destination):
+    directions = gmaps.directions(start_location, destination, mode="driving", departure_time=datetime.now())
+
+
+    return_route = gmaps.directions(destination, start_location, mode="driving", departure_time=datetime.now())
+    return directions, return_route
+
+start_location = "New York, NY"
+destination = "Los Angeles, CA"
+
+directions, return_route = round_trip_route(start_location, destination)
+
+print("Outbound Route:", directions[0]['legs'][0]['steps'])
+print("Return Route:", return_route[0]['legs'][0]['steps'])
